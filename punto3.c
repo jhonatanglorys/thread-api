@@ -4,21 +4,29 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <pthread.h>
+#include <string.h>
 
 #define MAXLON 1000
 
-void cuenta (char *);
+void cuenta (void* arg);
 
 int main (int argc, char *argv[]) { 
   if (argc!= 2) {
     printf ("Indica el nombre de un fichero.\n");
     exit(0);
   }
-  cuenta(argv[1]);
+  pthread_t hilo;
+  char parametros[strlen(argv[1])];
+  strcpy(parametros, argv[1]);
+  pthread_create(&hilo, NULL,(void *)cuenta,&parametros);
+  pthread_join(hilo, NULL);
+  //cuenta(argv[1]);
   return 0;
 }
 
-void cuenta (char *nombre) {
+void cuenta (void* parametros) {
+  char *nombre = parametros;
   int pos, cont= 0, leidos;
   char cadena[MAXLON];
   int fd;
