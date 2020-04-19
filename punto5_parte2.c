@@ -47,7 +47,7 @@ int main(int argc, char*argv[]){
     pthread_join(hilo_uno,(void *)&retorno_uno);
     pthread_join(hilo_dos,(void *)&retorno_dos);
     int total=retorno_uno + retorno_dos;
-    printf("La suma de todos los elementos es%d\n", total);
+    printf("La suma de todos los elementos es%d \n", total);
     return 0;
     }
     else {
