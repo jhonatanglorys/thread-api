@@ -28,10 +28,10 @@ int main (int argc, char *argv[]) {
       pthread_create(&id_hilo_dos,NULL,&factorial,&param_dos);
       pthread_join(id_hilo_uno,(void *)&fact_uno);
       pthread_join(id_hilo_dos,(void *)&fact_dos);
-    printf ("El factorial de %d es %d\n", param_uno, *fact_uno);
-    printf ("El factorial de %d es %d\n", param_dos, *fact_dos);
+    //printf ("El factorial de %d es %d\n", param_uno, *fact_uno);
+    //printf ("El factorial de %d es %d\n", param_dos, *fact_dos);
     free(fact_uno);
-  free(fact_dos);
+    free(fact_dos);
   return 0;
   }
   
