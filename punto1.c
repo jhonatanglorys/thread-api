@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+#include <pthread.h>
+
+long long int factorial (void* arg);
+
+int main (int argc, char *argv[]) {
+    srand(time(0)); 
+    
+  if (argc== 3) {
+        int* fact_uno;
+        int* fact_dos;
+      pthread_t id_hilo_uno;
+      pthread_t id_hilo_dos;  
+      int param_uno = atoi(argv[1]);
+      int param_dos = atoi(argv[2]);
+      pthread_create(&id_hilo_uno,NULL,(void *)factorial,&param_uno);
+      pthread_create(&id_hilo_dos,NULL,(void *)factorial,&param_dos);
+      pthread_join(id_hilo_uno,(void *)&fact_uno);
+      pthread_join(id_hilo_dos,(void *)&fact_dos);
+    printf ("El factorial de %d es %d\n", param_uno, *fact_uno);
+    printf ("El factorial de %d es %d\n", param_dos, *fact_dos);
+    free(fact_uno);
+  free(fact_dos);
+  return 0;
+  }
+  
+}
+
+
+long long int factorial(void* arg){
+    int fact = *((int*)arg);
+    long long int resultado= 1;
+    int num;
+    for (num= 2; num<=fact; num++) {
+        resultado= resultado*num;
+        printf ("Factorial de %d, resultado parcial %lld\n", fact, resultado);
+        sleep (random()%3);
+    }
+    return resultado;
+}
